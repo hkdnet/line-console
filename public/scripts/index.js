@@ -7,23 +7,31 @@
   });
   var socket = io.connect('http://localhost:3000/');
 
-  socket.on('message', function(msg) {
-    app.messages.push(msg)
+  socket.on('message', function(reply) {
+    console.log(reply)
+    if(!reply || !reply.messages) {
+      console.error('Format error');
+    }
+    reply.messages.forEach(e => app.messages.push(e));
   });
 
+  /*
   document
     .getElementById('submit')
     .addEventListener('click', function(e) {
       var data = document.querySelector('form textarea[name=json]');
-      console.log(data.textContent);
       var option = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({text: "hello"})
+        body: JSON.stringify({messages: [
+          { type: "text", text: "hello" },
+          { type: "text", text: "world" },
+        ]})
      };
       fetch('/message', option)
       e.preventDefault();
     });
+  */
 })();

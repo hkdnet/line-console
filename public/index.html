@@ -14,7 +14,14 @@
   <div id="app">
     <ol>
       <li v-for="message in messages">
-        {{ message.text }}
+        <div>
+          <span>
+            {{ message.type }}
+          </span>
+          <span>
+            {{ message.text }}
+          </span>
+        </div>
       </li>
     </ol>
   </div>

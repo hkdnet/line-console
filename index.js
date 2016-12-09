@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.post('/message', function (req, res) {
-  console.log(req.body);
   res.status(200).end();
   io.emit('message', req.body)
 });
