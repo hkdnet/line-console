@@ -2,7 +2,18 @@
   var app = new Vue({
     el: '#app',
     data: {
-      messages: []
+      messages: [],
+      type: "text",
+      text: "hello world",
+    },
+    computed: {
+      body: function() {
+        var message = { type: this.type, text: this.text};
+        var data = {
+          messages: [message]
+        };
+        return JSON.stringify(data, null, "  ");
+      }
     }
   });
   var socket = io.connect();
@@ -15,23 +26,18 @@
     reply.messages.forEach(e => app.messages.push(e));
   });
 
-  /*
   document
     .getElementById('submit')
     .addEventListener('click', function(e) {
-      var data = document.querySelector('form textarea[name=json]');
+      var data = document.querySelector('#result');
       var option = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({messages: [
-          { type: "text", text: "hello" },
-          { type: "text", text: "world" },
-        ]})
+        body: data.textContent
      };
-      fetch('/message', option)
-      e.preventDefault();
+     fetch('/message', option)
+     e.preventDefault();
     });
-  */
 })();
