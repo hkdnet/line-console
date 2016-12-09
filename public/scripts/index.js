@@ -24,7 +24,13 @@
         var message = { type: this.type, text: this.text};
         var data = {
           events: [{
+            replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
             type: "message",
+            timestamp: 1462629479859,
+            source: {
+              type: "user",
+              userId: "U206d25c2ea6bd87c17655609a1c37cb8"
+            },
             message: message
           }]
         };
