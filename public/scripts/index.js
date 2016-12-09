@@ -23,7 +23,10 @@
       body: function() {
         var message = { type: this.type, text: this.text};
         var data = {
-          messages: [message]
+          events: [{
+            type: "message",
+            message: message
+          }]
         };
         return JSON.stringify(data, null, "  ");
       }
