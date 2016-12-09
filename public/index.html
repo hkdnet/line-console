@@ -25,11 +25,26 @@
       </li>
     </ol>
     <form method="POST" action="/message">
-      <input v-model="type"></input>
-      <textarea v-model="text">
-      </textarea>
-      <pre id="result">{{ body }}</pre>
-      <input id="submit" type="submit" />
+      <p>
+        <label for="url">URL</label>
+        <input name="url" v-model="url"></input>
+      </p>
+      <p>
+        <label for="type">type</label>
+        <input name="type" v-model="type"></input>
+      </p>
+      <p>
+        <label for="message">message</label>
+        <textarea name="message" v-model="text">
+        </textarea>
+      </p>
+      <p>
+        <input id="submit" type="submit" />
+      </p>
+      <p>
+        <label>Request body</label>
+        <pre id="result">{{ body }}</pre>
+      </p>
     </form>
   </div>
   <script src="//unpkg.com/vue@2.1.4/dist/vue.min.js"></script>

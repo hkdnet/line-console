@@ -3,6 +3,7 @@
     el: '#app',
     data: {
       messages: [],
+      url: "/message",
       type: "text",
       text: "hello world",
     },
@@ -37,7 +38,7 @@
         },
         body: data.textContent
      };
-     fetch('/message', option)
+     fetch(app.url, option)
      e.preventDefault();
     });
 })();
