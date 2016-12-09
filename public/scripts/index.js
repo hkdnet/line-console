@@ -1,12 +1,24 @@
 (function() {
+  var read = function() {
+    var raw = localStorage.getItem('data');
+    if (!raw) {
+      return;
+    }
+    var data = JSON.parse(raw);
+    return data;
+  };
+  var write = function(data) {
+    localStorage.setItem('data', JSON.stringify(data));
+  };
+  var data = read() ||{
+    messages: [],
+    url: "/message",
+    type: "text",
+    text: "hello world",
+  };
   var app = new Vue({
     el: '#app',
-    data: {
-      messages: [],
-      url: "/message",
-      type: "text",
-      text: "hello world",
-    },
+    data: data,
     computed: {
       body: function() {
         var message = { type: this.type, text: this.text};
@@ -16,6 +28,15 @@
         return JSON.stringify(data, null, "  ");
       }
     }
+  });
+  window.addEventListener('beforeunload', function() {
+    var data = {
+      messages: [],
+      url: app.url,
+      type: app.type,
+      text: app.text
+    };
+    write(data);
   });
   var socket = io.connect();
 
