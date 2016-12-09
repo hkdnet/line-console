@@ -60,6 +60,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
+        cors: true,
         body: data.textContent
      };
      fetch(app.url, option)
