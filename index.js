@@ -44,6 +44,11 @@ app.get('/debug/buttons', function(req, res) {
           "data": "action=add&itemid=123"
         },
         {
+          "type": "message",
+          "label": "Message",
+          "text": "hello"
+        },
+        {
           "type": "uri",
           "label": "View detail",
           "uri": "http://example.com/page/123"
