@@ -59,9 +59,25 @@
                 }
               }]
             };
-            send(JSON.stringify(data));
-            break;
+            return send(JSON.stringify(data));
+          case "message":
+            var text = target.getAttribute('data-text');
+            var message = {type: "message", text: text};
+            var data = {
+              events: [{
+                replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+                type: "message",
+                timestamp: 1462629479859,
+                source: {
+                  type: "user",
+                  userId: "U206d25c2ea6bd87c17655609a1c37cb8"
+                },
+                message: message
+              }]
+            };
+            return send(JSON.stringify(data));
           default:
+            console.error("No such action: " + type);
         }
       },
       sendMessage: function (e) {
