@@ -23,9 +23,28 @@
               {{ message.type }}
             </span>
             <span> | </span>
-            <span class="content">
+            <span v-if="message.type == 'text'" class="content">
               {{ message.text }}
             </span>
+            <div v-if="message.type == 'template'" class="content message">
+              <div v-if="message.template.type == 'buttons'">
+                <div class="message-header">{{ message.template.title }}</div>
+                <div class="message-body">
+                  <div>
+                    {{ message.template.text }}
+                  </div>
+                  <button v-on:click="buttonAction"
+                    v-bind:data-type="action.type"
+                    v-bind:data-data="action.data"
+                    v-bind:data-text="action.text"
+                    v-bind:data-uri="action.uri"
+                    v-for="action in message.template.actions"
+                    class="button">
+                    {{ action.label }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </li>
       </ul>
@@ -45,7 +64,9 @@
         </textarea>
       </p>
       <p class="control">
-        <input id="submit" class="button is-primary" type="submit" />
+        <input id="submit"
+          class="button is-primary" type="submit"
+          v-on:click="sendMessage"/>
       </p>
       <p class="control">
         <label class="label">Request body</label>
