@@ -54,15 +54,17 @@
         <label class="label" for="url">URL</label>
         <input class="input" name="url" v-model="url"></input>
       </p>
-      <p class="control">
-        <label class="label" for="type">type</label>
-        <input class="input" name="type" v-model="type"></input>
-      </p>
-      <p class="control">
-        <label class="label" for="message">message</label>
-        <textarea class="input" name="message" v-model="text">
-        </textarea>
-      </p>
+      <div class="control is-grouped">
+        <p class="control">
+          <label class="label" for="type">type</label>
+          <input class="input" name="type" v-model="type"></input>
+        </p>
+        <p class="control is-expanded">
+          <label class="label" for="message">message</label>
+          <textarea class="input" name="message" v-model="text">
+          </textarea>
+        </p>
+      </div>
       <p class="control">
         <input id="submit"
           class="button is-primary" type="submit"
