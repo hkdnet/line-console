@@ -37,6 +37,7 @@
                     v-bind:data-type="action.type"
                     v-bind:data-data="action.data"
                     v-bind:data-text="action.text"
+                    v-bind:data-uri="action.uri"
                     v-for="action in message.template.actions"
                     class="button">
                     {{ action.label }}

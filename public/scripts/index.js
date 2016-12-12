@@ -76,6 +76,10 @@
               }]
             };
             return send(JSON.stringify(data));
+          case "uri":
+            var uri = target.getAttribute('data-uri');
+            window.open(uri);
+            return;
           default:
             console.error("No such action: " + type);
         }
