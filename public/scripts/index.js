@@ -28,67 +28,47 @@
     data: data,
     computed: {
       body: function () {
-        var message = {type: this.type, text: this.text};
-        var source = {
-          type: this.source.type
-        };
-        source[source.type + 'Id'] = this[source.type + 'Id'];
-        var data = {
-          events: [{
-            replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-            type: "message",
-            timestamp: 1462629479859,
-            source: source,
-            message: message
-          }]
-        };
+        var ev = this.baseEvent();
+        ev.type = "message";
+        ev.message = {type: this.type, text: this.text};
+        var data = { events: [ ev ] };
         return JSON.stringify(data, null, "  ");
       }
     },
     methods: {
+      baseEvent: function () {
+        var source = {
+          type: this.source.type
+        };
+        source[source.type + 'Id'] = this[source.type + 'Id'];
+        return {
+          replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+          timestamp: (new Date() - 0),
+          source: source
+        };
+      },
       buttonAction: function (e) {
         var target = e.target;
         if (!target) return false;
-        var type = target.getAttribute('data-type');
-        switch (type) {
+        var ev = this.baseEvent();
+        ev.type = target.getAttribute('data-type');
+        switch (ev.type) {
           case "postback":
-            var data = {
-              events: [{
-                "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                "type": "postback",
-                "timestamp": 1462629479859,
-                "source": {
-                  "type": "user",
-                  "userId": "U206d25c2ea6bd87c17655609a1c37cb8"
-                },
-                "postback": {
-                  "data": target.getAttribute('data-data')
-                }
-              }]
+            ev['postback'] = {
+              "data": target.getAttribute('data-data')
             };
-            return send(JSON.stringify(data));
+            return send(JSON.stringify({ events: [ev] }));
           case "message":
             var text = target.getAttribute('data-text');
             var message = {type: "message", text: text};
-            var data = {
-              events: [{
-                replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                type: "message",
-                timestamp: 1462629479859,
-                source: {
-                  type: "user",
-                  userId: "U206d25c2ea6bd87c17655609a1c37cb8"
-                },
-                message: message
-              }]
-            };
-            return send(JSON.stringify(data));
+            ev.message = message;
+            return send(JSON.stringify({ events: [ev] }));
           case "uri":
             var uri = target.getAttribute('data-uri');
             window.open(uri);
             return;
           default:
-            console.error("No such action: " + type);
+            console.error("No such action: " + ev.type);
         }
       },
       sendMessage: function (e) {
@@ -114,9 +94,9 @@
       url: app.url,
       type: app.type,
       text: app.text,
-      userId:  app.userId,
+      userId: app.userId,
       groupId: app.groupId,
-      roomId:  app.roomId,
+      roomId: app.roomId,
       source: {
         type: app.source.type
       }
