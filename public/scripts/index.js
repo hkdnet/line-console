@@ -1,4 +1,8 @@
-(function () {
+(function (deps) {
+  var localStorage = deps.localStorage;
+  var fetch = deps.fetch;
+  var Vue = deps.Vue;
+  var io = deps.io;
   var read = function () {
     var raw = localStorage.getItem('data');
     if (!raw) {
@@ -80,9 +84,7 @@
   var send = function (data) {
     var option = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       cors: true,
       body: data
     };
@@ -112,4 +114,4 @@
     }
     reply.messages.forEach(e => app.messages.push(e));
   });
-})();
+})({Vue: Vue, localStorage: localStorage, io: io, fetch: fetch});
