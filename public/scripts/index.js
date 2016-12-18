@@ -10,8 +10,7 @@
   var write = function (data) {
     localStorage.setItem('data', JSON.stringify(data));
   };
-
-  var data = Object.assign({}, {
+  var defaultValues = {
     messages: [],
     url: "/message",
     type: "text",
@@ -22,7 +21,8 @@
     source: {
       type: "user"
     }
-  }, read());
+  };
+  var data = Object.assign({}, defaultValues, read());
   var app = new Vue({
     el: '#app',
     data: data,
@@ -113,7 +113,13 @@
       messages: [],
       url: app.url,
       type: app.type,
-      text: app.text
+      text: app.text,
+      userId:  app.userId,
+      groupId: app.groupId,
+      roomId:  app.roomId,
+      source: {
+        type: app.source.type
+      }
     };
     write(data);
   });
