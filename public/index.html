@@ -65,6 +65,22 @@
           </textarea>
         </p>
       </div>
+      <div class="control is-grouped">
+        <p class="control">
+          <label class="label" for="source-type">type</label>
+          <select class="input" name="source-type" v-model="source.type">
+            <option value="user">user</option>
+            <option value="group">group</option>
+            <option value="room">room</option>
+          </select>
+        </p>
+        <p class="control is-expanded">
+          <label class="label" for="sourceId">message</label>
+          <input class="input" name="sourceId" v-show="source.type == 'user'" v-model="userId"></input>
+          <input class="input" name="sourceId" v-show="source.type == 'group'" v-model="groupId"></input>
+          <input class="input" name="sourceId" v-show="source.type == 'room'" v-model="roomId"></input>
+        </p>
+      </div>
       <p class="control">
         <input id="submit"
           class="button is-primary" type="submit"

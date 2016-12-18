@@ -2,7 +2,7 @@
   var read = function () {
     var raw = localStorage.getItem('data');
     if (!raw) {
-      return;
+      return {};
     }
     var data = JSON.parse(raw);
     return data;
@@ -11,27 +11,34 @@
     localStorage.setItem('data', JSON.stringify(data));
   };
 
-  var data = read() || {
+  var data = Object.assign({}, {
     messages: [],
     url: "/message",
     type: "text",
     text: "hello world",
-  };
+    userId: "U206d25c2ea6bd87c17655609a1c37cb8",
+    groupId: "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    roomId: "rxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    source: {
+      type: "user"
+    }
+  }, read());
   var app = new Vue({
     el: '#app',
     data: data,
     computed: {
       body: function () {
         var message = {type: this.type, text: this.text};
+        var source = {
+          type: this.source.type
+        };
+        source[source.type + 'Id'] = this[source.type + 'Id'];
         var data = {
           events: [{
             replyToken: "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
             type: "message",
             timestamp: 1462629479859,
-            source: {
-              type: "user",
-              userId: "U206d25c2ea6bd87c17655609a1c37cb8"
-            },
+            source: source,
             message: message
           }]
         };
